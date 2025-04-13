@@ -8,12 +8,16 @@ const API_URL = 'https://api.coingecko.com/api/v3/coins/markets';
     const mainElement = document.getElementById('app-main');
 
     let comparisonList = JSON.parse(localStorage.getItem('comparisonList')) || [];
+    let favoritesList = JSON.parse(localStorage.getItem('favoritesList')) || [];
+
     let fullData = [];
     let displayLimit = 10;
 
     async function fetchCryptoData() {
       try {
+
         const res = await fetch(`${API_URL}?vs_currency=usd&order=${sortSelect.value}&per_page=50&page=1&sparkline=false`);
+       
         const data = await res.json();
         fullData = data;
         displayCryptoList();
@@ -32,6 +36,7 @@ const API_URL = 'https://api.coingecko.com/api/v3/coins/markets';
             <h3>${coin.name} (${coin.symbol.toUpperCase()})</h3>
             <p>Price: $${coin.current_price.toFixed(2)}</p>
             <button onclick="addToComparison('${coin.id}')">Compare</button>
+            <button onclick="addToFavorites('${coin.id}')">Favorite</button>
           </div>
         `;
         listContainer.innerHTML += coinHTML;
@@ -43,7 +48,9 @@ const API_URL = 'https://api.coingecko.com/api/v3/coins/markets';
     }
 
     function addToComparison(id) {
-      if (!comparisonList.includes(id)) {
+      if (comparisonList.includes(id)) {
+        alert('This coin is already selected for comparison.');
+      } else {
         if (comparisonList.length < 5) {
           comparisonList.push(id);
           localStorage.setItem('comparisonList', JSON.stringify(comparisonList));
@@ -54,6 +61,22 @@ const API_URL = 'https://api.coingecko.com/api/v3/coins/markets';
         }
       }
     }
+    function addToFavorites(id) {
+      if (favoritesList.includes(id)) {
+        alert('This coin is already in your favorites.');
+      } else {
+        if (favoritesList.length < 5) {
+          favoritesList.push(id);
+          localStorage.setItem('favoritesList', JSON.stringify(favoritesList));
+          updateFavorites();
+          mainElement.classList.add('show-favorites');
+        } else {
+          alert('You can favorite up to 5 coins only.');
+        }
+      }
+    }
+    
+    
 
     function removeFromComparison(id) {
       comparisonList = comparisonList.filter(cid => cid !== id);
@@ -64,9 +87,33 @@ const API_URL = 'https://api.coingecko.com/api/v3/coins/markets';
       }
     }
 
+    function removeFromFavorites(id) {
+      favoritesList = favoritesList.filter(fid => fid !== id);
+      localStorage.setItem('favorites', JSON.stringify(favoritesList));
+      updateFavorites();
+      if (favorites.length === 0) {
+        mainElement.classList.remove('show-favorites');
+      }
+    }
+    
     function updateComparison() {
+      const comparisonContainer = document.getElementById('comparison-container');
+      const comparisonPanel = document.getElementById('comparison-panel');
+    
+      // Get the list directly from localStorage every time
+      const comparisonList = JSON.parse(localStorage.getItem('comparisonList')) || [];
+    
       comparisonContainer.innerHTML = '';
+    
+      if (comparisonList.length === 0) {
+        comparisonPanel.style.display = 'none';
+        return;
+      }
+    
+      comparisonPanel.style.display = 'block';
+    
       const selected = fullData.filter(coin => comparisonList.includes(coin.id));
+    
       selected.forEach(coin => {
         const compEl = document.createElement('div');
         compEl.className = 'comparison-item';
@@ -80,7 +127,36 @@ const API_URL = 'https://api.coingecko.com/api/v3/coins/markets';
         comparisonContainer.appendChild(compEl);
       });
     }
-
+    
+    function updateFavorites() {
+      const favoritesContainer = document.getElementById('favorites-container');
+      const favoritesPanel = document.getElementById('favorites-panel');
+    
+      favoritesContainer.innerHTML = '';
+    
+      if (favoritesList.length === 0) {
+        favoritesPanel.style.display = 'none';
+        return;
+      }
+    
+      favoritesPanel.style.display = 'block';
+    
+      const selected = fullData.filter(coin => favoritesList.includes(coin.id));
+    
+      selected.forEach(coin => {
+        const favEl = document.createElement('div');
+        favEl.className = 'favorite-item';
+        favEl.innerHTML = `
+          <h4>${coin.name}</h4>
+          <p>Price: $${coin.current_price.toFixed(2)}</p>
+          <p>24h Change: ${coin.price_change_percentage_24h.toFixed(2)}%</p>
+          <p>Market Cap: $${coin.market_cap.toLocaleString()}</p>
+          <button onclick="removeFromFavorites('${coin.id}')">Remove</button>
+        `;
+        favoritesContainer.appendChild(favEl);
+      });
+    }
+    
     loadMoreBtn.addEventListener('click', () => {
       displayLimit += 10;
       displayCryptoList();
@@ -92,7 +168,19 @@ const API_URL = 'https://api.coingecko.com/api/v3/coins/markets';
     });
 
     sortSelect.addEventListener('change', fetchCryptoData);
-    fetchCryptoData();
-    setInterval(fetchCryptoData, 60000);
+    // sortSelect.addEventListener('change', fetchCryptoData,() => {
+    //   location.reload();
+    // });
+  
+    fetchCryptoData().then(() => {
+      updateFavorites();
+    });
+    
+    setInterval(() => {
+      fetchCryptoData().then(() => {
+        updateFavorites();
+      });
+    }, 60000);
+    
 
     // test comment . 

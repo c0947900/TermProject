@@ -17,10 +17,10 @@
   <section id="preferences">
     <label for="sort">Sort by:</label>
     <select id="sort">
-      <option value="market_cap_desc">Market Cap</option>
-      <option value="volume_desc">Volume</option>
-      <option value="id_asc">Name (A-Z)</option>
-      <option value="id_desc">Name (Z-A)</option>
+      <option value="market_cap_desc">Market Cap (High to Low)</option>
+      <option value="market_cap_asc">Market Cap (Low to High)</option>
+      <option value="price_change_percentage_24h_desc">24h Change % (High to Low)</option>
+      <option value="price_change_percentage_24h_asc">24h Change % (Low to High)</option>
     </select>
   </section>
 </div>
@@ -36,12 +36,20 @@
       </div>
     </section>
 
-    <section id="comparison-panel">
+    <section id="comparison-panel" style="display: none;">
       <div>
         <div><h2>Comparison Panel</h2></div>
-        <div id="comparison-container" style="display: flex; flex-wrap: wrap; gap: 1rem;"></div>
+        <div id="comparison-container"></div>
       </div>
     </section>
+    <section id="favorites-panel" style="display: none;">
+      <div>
+        <div><h2>Favorites Panel</h2></div>
+        <div id="favorites-container"></div>
+      </div>
+    </section>
+    
+    
   </main>
 
   <footer>
