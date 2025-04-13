@@ -1,0 +1,306 @@
+/* Reset and base styles */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #1e1e2f;
+  color: #f0f0f0;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+/* Header and Preferences */
+header,
+#preferences {
+  padding: 1rem 2rem;
+  background: linear-gradient(90deg, #0f2027, #203a43, #2c5364);
+  color: #ffffff;
+  text-align: center;
+}
+
+.wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+#sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: #141c2f; /* Adjusted background */
+}
+header {
+  background-color: #141c2f;
+  color: white;
+  padding: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#preferences {
+  background-color: #1b233a; /* Adjusted background */
+  color: white;
+  padding: 0.75rem 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+main {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+header h1 {
+  margin: 0;
+  font-size: 1.8rem;
+  letter-spacing: 1px;
+}
+
+#preferences {
+  background-color: #2a2a40;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+#preferences select {
+  background-color: #3a3a5c;
+  border: none;
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+#preferences {
+  background-color: #2a2a40;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 2rem;
+  position: relative;
+}
+
+#preferences label {
+  font-weight: 600;
+  color: #ffffffcc;
+  font-size: 1rem;
+}
+
+/* Container for select to hold custom arrow */
+#preferences select {
+  background: linear-gradient(135deg, #3a3a5c, #2e2e45);
+  color: #fffafa;
+  border: 1px solid #555;
+  border-radius: 8px;
+  padding: 8px 40px 8px 14px;
+  font-size: 1rem;
+  font-weight: 500;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  cursor: pointer;
+  position: relative;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px;
+}
+select option {
+  background-color: #2e2e45;
+  color: #ffffff;
+  padding: 10px;
+}
+/* Add a dropdown arrow using background SVG (base64) */
+#preferences select {
+  background-image: url("data:image/svg+xml;base64,PHN2ZyBmaWxsPSJ3aGl0ZSIgd2lkdGg9IjE0IiBoZWlnaHQ9IjE0IiB2aWV3Qm94PSIwIDAgMjQgMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTEyIDE1LjE3TDYuNDEgOS41OSA3LjgzIDguMTcgMTIgMTIuMzQgMTYuMTcgOC4xNyAxNy41OSA5LjU5TDEyIDE1LjE3WiIvPjwvc3ZnPg==");
+}
+
+/* Hover & Focus Effects */
+#preferences select:hover {
+  border-color:#203a44;
+  background: linear-gradient(135deg, #4a4a6c, #3b3b5e);
+}
+
+#preferences select:focus {
+  outline: none;
+  border-color: #92fe9d;
+  box-shadow: 0 0 0 3px rgba(146, 254, 157, 0.2);
+}
+
+
+/* Layout structure */
+main {
+  display: flex;
+  transition: all 0.5s ease-in-out;
+  height: calc(100vh - 140px);
+  flex-direction: row;
+}
+
+/* Sidebar */
+#crypto-sidebar {
+  display: none;
+  flex-direction: column;
+  width: 280px;
+  padding: 1rem;
+  border-right: 1px solid #444;
+  background-color: #2e2e45;
+  
+}
+
+/* Crypto list */
+#crypto-list {
+  flex-grow: 1;
+ 
+  
+  padding: 1rem;
+}
+
+#list-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+/* Comparison Panel */
+#comparison-panel {
+  display: none;
+  flex-grow: 1;
+  padding: 1rem;
+  background-color: #242436;
+  
+  flex-wrap: wrap;
+}
+
+.show-comparison #crypto-sidebar {
+  display: flex;
+}
+
+.show-comparison #crypto-list {
+  display: none;
+}
+
+.show-comparison #comparison-panel {
+  display: flex;
+}
+
+/* Crypto Items */
+.crypto-item {
+  background-color: #2f2f47;
+  color: #fff;
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  flex: 1 1 calc(20% - 2rem);
+  min-width: 200px;
+  box-sizing: border-box;
+  transition: transform 0.3s;
+}
+
+.crypto-item:hover {
+  transform: translateY(-5px);
+}
+
+/* Comparison Items */
+.comparison-item {
+  background-color: #3b3b5e;
+  color: #d1ffe5;
+  border-radius: 12px;
+  padding: 1rem;
+  flex: 1 1 calc(33% - 2rem);
+  min-width: 250px;
+  box-sizing: border-box;
+  height: 50%;
+  box-shadow: 0 4px 12px rgba(0, 255, 163, 0.2);
+}
+
+/* Buttons */
+.button-container {
+  text-align: center;
+  margin: 20px 0;
+  width: 100%;
+}
+
+button {
+  background: linear-gradient(135deg, #00c9ff, #92fe9d);
+  color: #000;
+  font-weight: bold;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin: 5px;
+  box-shadow: 0 3px 8px rgba(0, 201, 255, 0.4);
+  transition: background 0.3s, transform 0.2s;
+}
+
+button:hover {
+  transform: scale(1.05);
+  background: linear-gradient(135deg, #00aaff, #72ff9d);
+}
+
+/* Responsive Layout */
+@media (max-width: 1024px) {
+  .crypto-item {
+    flex: 1 1 calc(33.333% - 2rem);
+  }
+  .comparison-item {
+    flex: 1 1 calc(50% - 2rem);
+  }
+}
+
+@media (max-width: 768px) {
+  .crypto-item {
+    flex: 1 1 calc(50% - 2rem);
+  }
+  .comparison-item {
+    flex: 1 1 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .crypto-item {
+    flex: 1 1 100%;
+  }
+}
+
+footer {
+  background-color: #1c1c2b;
+  color: #ccc;
+  padding: 1.5rem 2rem;
+  text-align: center;
+  border-top: 1px solid #2a2a40;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-container p {
+  margin: 0 0 0.5rem;
+  font-size: 0.95rem;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.footer-links a {
+  color: #ccc;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: #00c9ff;
+}
