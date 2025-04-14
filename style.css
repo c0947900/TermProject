@@ -11,6 +11,7 @@ html, body {
   padding: 0;
   height: 100%;
 }
+
 /* Header and Preferences */
 header,
 #preferences {
@@ -25,12 +26,14 @@ header,
   display: flex;
   flex-direction: column;
 }
+
 #sticky-header {
   position: sticky;
   top: 0;
   z-index: 1000;
   background-color: #141c2f; /* Adjusted background */
 }
+
 header {
   background-color: #141c2f;
   color: white;
@@ -54,6 +57,7 @@ main {
   flex-direction: row;
   flex-wrap: wrap;
 }
+
 header h1 {
   margin: 0;
   font-size: 1.8rem;
@@ -75,14 +79,6 @@ header h1 {
   border-radius: 5px;
   font-size: 1rem;
 }
-#preferences {
-  background-color: #2a2a40;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 1rem 2rem;
-  position: relative;
-}
 
 #preferences label {
   font-weight: 600;
@@ -90,7 +86,6 @@ header h1 {
   font-size: 1rem;
 }
 
-/* Container for select to hold custom arrow */
 #preferences select {
   background: linear-gradient(135deg, #3a3a5c, #2e2e45);
   color: #fffafa;
@@ -110,19 +105,16 @@ header h1 {
   background-position: right 12px center;
   background-size: 16px;
 }
+
 select option {
   background-color: #2e2e45;
   color: #ffffff;
   padding: 10px;
 }
-/* Add a dropdown arrow using background SVG (base64) */
-#preferences select {
-  background-image: url("data:image/svg+xml;base64,PHN2ZyBmaWxsPSJ3aGl0ZSIgd2lkdGg9IjE0IiBoZWlnaHQ9IjE0IiB2aWV3Qm94PSIwIDAgMjQgMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTEyIDE1LjE3TDYuNDEgOS41OSA3LjgzIDguMTcgMTIgMTIuMzQgMTYuMTcgOC4xNyAxNy41OSA5LjU5TDEyIDE1LjE3WiIvPjwvc3ZnPg==");
-}
 
 /* Hover & Focus Effects */
 #preferences select:hover {
-  border-color:#203a44;
+  border-color: #203a44;
   background: linear-gradient(135deg, #4a4a6c, #3b3b5e);
 }
 
@@ -131,7 +123,10 @@ select option {
   border-color: #92fe9d;
   box-shadow: 0 0 0 3px rgba(146, 254, 157, 0.2);
 }
-
+/* Add a dropdown arrow using background SVG (base64) */
+#preferences select {
+  background-image: url("data:image/svg+xml;base64,PHN2ZyBmaWxsPSJ3aGl0ZSIgd2lkdGg9IjE0IiBoZWlnaHQ9IjE0IiB2aWV3Qm94PSIwIDAgMjQgMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTEyIDE1LjE3TDYuNDEgOS41OSA3LjgzIDguMTcgMTIgMTIuMzQgMTYuMTcgOC4xNyAxNy41OSA5LjU5TDEyIDE1LjE3WiIvPjwvc3ZnPg==");
+}
 
 /* Layout structure */
 main {
@@ -141,7 +136,6 @@ main {
   flex-direction: row;
 }
 
-/* Sidebar */
 #crypto-sidebar {
   display: none;
   flex-direction: column;
@@ -149,7 +143,6 @@ main {
   padding: 1rem;
   border-right: 1px solid #444;
   background-color: #2e2e45;
-  
 }
 
 #app-main {
@@ -158,11 +151,11 @@ main {
   padding: 20px;
   align-items: flex-start;
 }
+
 #crypto-list {
   flex: 2;
   min-width: 0; /* Allows shrinking */
 }
-
 
 #list-container {
   display: flex;
@@ -171,16 +164,16 @@ main {
   justify-content: center;
 }
 
-
 #comparison-panel {
   max-height: 80vh;
   overflow-y: auto;
 }
+
 #comparison-panel {
   flex: 1;
   min-width: 300px;
   background-color: #f8f8f8;
-  color:black;
+  color: black;
   border-left: 1px solid #ccc;
   padding: 15px;
   border-radius: 8px;
@@ -316,6 +309,15 @@ button:hover {
   .comparison-item {
     flex: 1 1 calc(50% - 2rem);
   }
+
+  #crypto-sidebar {
+    display: block;
+    width: 100%;
+  }
+
+  #app-main {
+    flex-direction: column;
+  }
 }
 
 @media (max-width: 768px) {
@@ -325,11 +327,33 @@ button:hover {
   .comparison-item {
     flex: 1 1 100%;
   }
+
+  #crypto-sidebar {
+    width: 100%;
+    display: block;
+  }
+
+  #app-main {
+    flex-direction: column;
+    gap: 1rem;
+  }
 }
 
 @media (max-width: 480px) {
   .crypto-item {
     flex: 1 1 100%;
+  }
+  .comparison-item {
+    flex: 1 1 100%;
+  }
+
+  #crypto-sidebar {
+    width: 100%;
+    display: block;
+  }
+
+  #app-main {
+    flex-direction: column;
   }
 }
 
